@@ -17,7 +17,7 @@ func main() {
 	if err != nil {
 		log.Fatalln("Failed to connect to redis")
 	}
-
+	
 	e := router.InitRouter(database)
 	e.Logger.Fatal(e.Start(ListenAddr))
 }
