@@ -7,16 +7,20 @@ import (
 
 var database *db.Database
 
+func Home(c echo.Context) error {
+	return c.JSON(200,"Home Page")
+}
+
 func Points(c echo.Context) error {
 	var user db.User
 
 	if err := c.Bind(&user); err != nil {
-		return c.JSON(400, err)
+		return c.JSON(400, "mistake bind")
 	}
 
 	err := database.SaveUser(&user)
 	if err != nil {
-		return c.JSON(500, err)
+		return c.JSON(500, "500 points")
 	}
 
 	return c.JSON(200, map[string]interface{}{
@@ -34,7 +38,7 @@ func GetUser(c echo.Context) error {
 		}
 		return c.JSON(500,err)
 	}
-	
+
 	return c.JSON(200, map[string]interface{}{
 		"user": user,
 	})

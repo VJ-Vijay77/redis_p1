@@ -10,5 +10,6 @@ func API(e *echo.Echo) {
 
 	e.POST("/points",controllers.Points)
 	e.GET("/points/:username",controllers.GetUser)
+	e.GET("/points/home",controllers.Home)
 
 }
