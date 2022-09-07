@@ -48,7 +48,7 @@ func(db *Database) SaveUser(user *User) error {
 }
 
 
-
+// dependency
 func NewDatabase(address string) (*Database,error) {
 	client := redis.NewClient(&redis.Options{
 		Addr: address,
