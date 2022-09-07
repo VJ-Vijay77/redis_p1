@@ -42,9 +42,28 @@ func(db *Database) SaveUser(user *User) error {
 	fmt.Println(rank.Val(),err)
 	user.Rank = int(rank.Val())
 	return nil
+}
 
+func(db *Database) GetUser (username string) (*User,error) {
+	pipe := db.Client.TxPipeline()
+	score := pipe.ZScore(Ctx,"LKEY",username)
+	rank := pipe.ZRank(Ctx,"LKEY",username)
+	_,err := pipe.Exec(Ctx)
+	if err != nil {
+		return nil,err
+	}
 
+	if score == nil {
+		return nil,ErrNil
+	}
 
+	return &User{
+		Username: username,
+		Points: int(score.Val()),
+		Rank: int(rank.Val()),
+	},nil
+
+	
 }
 
 

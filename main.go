@@ -5,6 +5,7 @@ import (
 
 	"github.com/VJ-Vijay77/redis_cache_p1/db"
 	"github.com/VJ-Vijay77/redis_cache_p1/router"
+	"github.com/VJ-Vijay77/redis_cache_p1/api"
 )
 
 var (
@@ -19,5 +20,6 @@ func main() {
 	}
 
 	e := router.InitRouter(database)
+	api.API(e)
 	e.Logger.Fatal(e.Start(ListenAddr))
 }
