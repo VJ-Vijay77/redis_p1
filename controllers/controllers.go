@@ -24,3 +24,18 @@ func Points(c echo.Context) error {
 	})
 
 }
+
+func GetUser(c echo.Context) error {
+	username := c.Param("username")
+	user, err := database.GetUser(username)
+	if err != nil {
+		if err == db.ErrNil {
+			return c.JSON(404,err)
+		}
+		return c.JSON(500,err)
+	}
+	
+	return c.JSON(200, map[string]interface{}{
+		"user": user,
+	})
+}
